@@ -13,7 +13,7 @@ export function createBoardPdf(strokes:Stroke[],title:string) {
   const factor=Math.min((pageWidth-2*margin)/Math.max(w,1),(pageHeight-2*margin)/Math.max(h,1));
   const x=(value:number)=>(pageWidth-w*factor)/2+(value-b.left)*factor;
   const y=(value:number)=>(pageHeight-h*factor)/2+(value-b.top)*factor;
-  doc.setFillColor('#f8f7f3');doc.rect(0,0,pageWidth,pageHeight,'F');
+  doc.setFillColor('#ffffff');doc.rect(0,0,pageWidth,pageHeight,'F');
   doc.setLineCap('round');doc.setLineJoin('round');
   for(const s of [...strokes].sort((a,b)=>a.order-b.order)) {
     doc.setDrawColor(s.color);doc.setFillColor(s.color);

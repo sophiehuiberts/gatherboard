@@ -70,7 +70,7 @@ This app runs on **Cloudflare Workers with SQLite Durable Objects**, which are a
    npm run deploy
    ```
 
-Cloudflare prints your HTTPS address, such as `https://gatherboard.YOUR-SUBDOMAIN.workers.dev`. Send that address to friends. Use **Invite a friend** inside a room to copy a direct room link; share its password separately.
+Cloudflare prints your HTTPS address, such as `https://gatherboard.YOUR-SUBDOMAIN.workers.dev`. Send that address to friends. Use **(invite)** inside a room to copy a direct room link; share its password separately.
 
 If the deployment name is already used in your own Cloudflare account, change `name` in `wrangler.jsonc` before your first deployment. Future changes use the same `npm run deploy` command; persisted boards remain intact. Deploying may briefly disconnect guests, who reconnect automatically.
 
@@ -82,10 +82,10 @@ Current hosting details: [Workers pricing](https://developers.cloudflare.com/wor
 
 | Action | Control |
 | --- | --- |
-| Draw | Pen tool, then mouse or pen drag; **B** |
-| Erase a whole stroke | Eraser tool; **E** (USB pen eraser button/tip supported when reported by the browser) |
-| Fading pointer | Pointer tool; **L** |
-| Pan | Hand tool (**H**), Space + drag, middle mouse drag, or scroll |
+| Draw | Pen tool, then mouse or pen drag; **A** |
+| Erase a whole stroke | Eraser tool; **S** (USB pen eraser button/tip supported when reported by the browser) |
+| Fading pointer | Pointer tool; **D** |
+| Pan | Hand tool (**G**), Space + drag, middle mouse drag, or scroll |
 | Zoom | Trackpad/iPad pinch, Ctrl/⌘ + scroll, + / −, or the zoom buttons |
 | Undo your last draw/erase | Ctrl/⌘ + Z |
 | Fit the drawing on screen | **F** |

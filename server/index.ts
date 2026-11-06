@@ -1,7 +1,7 @@
 import { DurableObject } from 'cloudflare:workers';
 import roomSettings from '../rooms.config.json';
 const config: {rooms:{id:string;name:string;description?:string;password:string}[]} = roomSettings;
-import { MAX_STROKES, MAX_BOARD_POINTS, validColor, validPoint, validStroke, type Stroke } from './protocol';
+import { DEFAULT_COLOR, MAX_STROKES, MAX_BOARD_POINTS, validColor, validPoint, validStroke, type Stroke } from './protocol';
 import {BoardStore,type BoardCursor} from './board-store';
 interface Env { ROOMS: DurableObjectNamespace<BoardRoom>; ASSETS: Fetcher }
 type Session = { id: string; name: string; color: string; expires: number; version: string };
@@ -64,11 +64,11 @@ export class BoardRoom extends DurableObject<Env> {
       if(!await this.ctx.storage.getAlarm())await this.ctx.storage.setAlarm(now+60*60*1000);
       if (attempt.count>10) return json({error:'Too many attempts. Try again in a minute.'},429);
       let body; try {const text=await request.text();if(text.length>2048) return json({error:'Request too large.'},413); body=JSON.parse(text);} catch {return json({error:'Invalid request.'},400);}
-      if(typeof body.password!=='string' || await digest(body.password)!==version) return json({error:'That password doesn’t match. Give it another try.'},401);
+      if(typeof body.password!=='string' || await digest(body.password)!==version) return json({error:'Wrong password.'},401);
       const name=typeof body.name==='string'?body.name.trim().slice(0,32):'';
-      if (!name) return json({error:'Enter a name so everyone knows it’s you.'},400);
+      if (!name) return json({error:'Enter a name.'},400);
       const token = crypto.randomUUID();
-      const session:Session={id:crypto.randomUUID(),name,color:validColor(body.color)?body.color:'#789542',expires:now+12*60*60*1000,version};
+      const session:Session={id:crypto.randomUUID(),name,color:validColor(body.color)?body.color:DEFAULT_COLOR,expires:now+12*60*60*1000,version};
       await this.ctx.storage.put(`session:${token}`,session);
       if(!await this.ctx.storage.getAlarm()) await this.ctx.storage.setAlarm(now+60*60*1000);
       const headers=new Headers({'Content-Type':'application/json','Cache-Control':'no-store'});
