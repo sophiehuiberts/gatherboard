@@ -1,3 +1,6 @@
+[soph's note: putting this on github because i use it personally and am very happy with it. all is vibe coded]
+
+
 # Gatherboard
 
 A browser whiteboard for the people already in your Zoom or Discord call. Everyone joins the same room URL with a name and the room password. No accounts for your guests, no installation, and no video/audio permissions.
