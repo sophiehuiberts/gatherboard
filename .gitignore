@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+rooms.config.json
+.env*
+.DS_Store
+preview.jpg
+
+pointer-preview.jpg
+input-preview.jpg
+large-board-preview.jpg

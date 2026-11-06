@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {distanceToSegment,hitsStroke,bounds} from '../src/geometry.ts';
+import {validPoint,validStroke} from '../server/protocol.ts';
+const p=(x,y)=>({x,y,p:.7});
+const s={id:'test-1',color:'#789542',width:5,points:[p(0,0),p(100,0)],author:'me',order:1};
+test('eraser hits the middle of a long stroke, including endpoints',()=>{assert.equal(distanceToSegment(p(50,8),p(0,0),p(100,0)),8);assert.ok(hitsStroke(p(50,10),s,12));assert.ok(hitsStroke(p(-10,0),s,12));assert.ok(!hitsStroke(p(50,20),s,12));});
+test('eraser handles a single dot and zero-length segments',()=>{assert.ok(hitsStroke(p(2,2),{...s,points:[p(0,0)]},4));assert.equal(distanceToSegment(p(3,4),p(0,0),p(0,0)),5);});
+test('export bounds include negative coordinates and stroke margins',()=>{assert.deepEqual(bounds([{...s,points:[p(-30,-50),p(100,20)]}]),{left:-35,top:-55,right:105,bottom:25});assert.equal(bounds([]),null);});
+test('protocol rejects nonfinite coordinates, injection colors and excessive geometry',()=>{assert.ok(validStroke(s));assert.ok(!validPoint(p(Infinity,0)));assert.ok(!validStroke({...s,color:'red;url(x)'}));assert.ok(!validStroke({...s,points:Array(601).fill(p(0,0))}));assert.ok(!validStroke({...s,width:1000}));assert.ok(!validStroke({...s,id:'<script>'}));});

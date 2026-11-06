@@ -1,0 +1,7 @@
+{
+  "rooms": [
+    { "id": "the-lounge", "name": "The lounge", "description": "A little space to think together.", "password": "change-this-lounge-password" },
+    { "id": "scratchpad", "name": "Scratchpad", "description": "For the beautifully unfinished.", "password": "change-this-scratchpad-password" },
+    { "id": "game-night", "name": "Game night", "description": "Plans, puzzles, and questionable diagrams.", "password": "change-this-game-password" }
+  ]
+}

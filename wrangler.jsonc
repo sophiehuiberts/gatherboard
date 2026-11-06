@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gatherboard",
+  "main": "server/index.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./dist/client", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
+  "durable_objects": { "bindings": [{ "name": "ROOMS", "class_name": "BoardRoom" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["BoardRoom"] }],
+  "observability": { "enabled": false }
+}
